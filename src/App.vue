@@ -23,6 +23,7 @@ export default {
 #app {
   padding-top: 1em;
   margin: auto;
+  width: 100%;
   max-width: 950px;
 }
 </style>

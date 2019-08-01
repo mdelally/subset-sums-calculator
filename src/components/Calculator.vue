@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-inline d-flex mb-2">
-            <div class="form-group">
+            <div class="form-group mr-4">
                 <label for="sum">Target Sum</label>
                 <input type="number"
                        class="form-control"
@@ -9,6 +9,19 @@
                        id="sum"
                 />
             </div>
+            <div class="form-group">
+                <label for="setArray">Set Array from String</label>
+                <input type="text"
+                       class="form-control"
+                       v-model="newArray"
+                       id="setArray"
+                >
+            </div>
+            <button class="add-btn btn btn-primary btn-md"
+                    @click.prevent="setFromString"
+            >
+                SET
+            </button>
         </div>
         <number-list :set="set" />
         <div class="d-flex justify-content-end mt-4 align-content-center">
@@ -61,6 +74,7 @@ export default {
     return {
       set: [2, 4, 6, 8, 10, 12, 14, 16, 18],
       target: 30,
+      newArray: '',
       result: [],
       calculations: 0,
       calcTime: 0
@@ -76,6 +90,10 @@ export default {
       this.result = [];
       this.calculations = 0;
       this.calcTime = 0;
+    },
+    setFromString() {
+      this.set = JSON.parse('[' + this.newArray + ']');
+      this.newArray = '';
     },
     findSubsetSums(set, target, partial) {
       let start = performance.now();

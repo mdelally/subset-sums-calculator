@@ -1,7 +1,9 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Set to Calculate</h5>
+            <h5 class="card-title">
+                Set to Calculate ({{ set.length }} values)
+            </h5>
 
             <div v-if="set.length < 2" class="alert alert-danger">
                 <em class="p-1 font-weight-bold">Set must contain 2 or more values!</em>
@@ -27,7 +29,7 @@
                     DELETE ALL
                 </button>
             </div>
-            <ul class="number-list" id="list">
+            <ul class="number-list p-0" id="list">
                 <li v-for="(n, index) in set"
                     class="d-flex justify-content-between bg-light p-2 pr-3"
                     :key="'num_' + index"
