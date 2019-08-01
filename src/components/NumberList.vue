@@ -21,8 +21,13 @@
                 >
                     ADD
                 </button>
+                <button class="add-btn btn btn-danger btn-md"
+                        @click.prevent="set = []"
+                >
+                    DELETE ALL
+                </button>
             </div>
-            <ul>
+            <ul class="number-list" id="list">
                 <li v-for="(n, index) in set"
                     class="d-flex justify-content-between bg-light p-2 pr-3"
                     :key="'num_' + index"
@@ -55,6 +60,11 @@ export default {
     addNumToSet() {
       this.set.push(this.newNum);
       this.newNum = 1;
+
+      let list = document.getElementById("list");
+      this.$nextTick(() => {
+        list.scrollTop = list.scrollHeight;
+      });
     },
     deleteNumFromSet(index) {
       this.set.splice(index, 1);
@@ -64,6 +74,11 @@ export default {
 </script>
 
 <style>
+    ul.number-list {
+        max-height: 300px;
+        overflow: scroll;
+    }
+
     div.form-inline > div.form-group label {
         margin-right: 6px;
     }

@@ -29,8 +29,17 @@
 
         <div class="card my-3" v-if="result.length > 0">
             <div class="card-body">
-                <h5 class="card-title">Results ({{ result.length }})</h5>
-                <pre><code class="code">{{ result }}</code></pre>
+                <h5 class="card-title">
+                    Results ({{ result.length + ' generated in ' + calcTime + 'ms' }})
+                </h5>
+                <ul class="p-0">
+                    <li v-for="(r, index) in result"
+                        class="d-flex justify-content-between bg-light p-2 pr-3 ml-0"
+                        :key="'result_' + index"
+                    >
+                        {{ r }}
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -54,20 +63,25 @@ export default {
       target: 30,
       result: [],
       calculations: 0,
+      calcTime: 0
     };
   },
 
   methods: {
     calculate() {
-      this.result = [];
+      this.reset();
       this.findSubsetSums(this.set, this.target);
     },
     reset() {
       this.result = [];
       this.calculations = 0;
+      this.calcTime = 0;
     },
     findSubsetSums(set, target, partial) {
+      let start = performance.now();
+
       this.calculations += 1;
+
       let sum;
       let num;
       let remaining;
@@ -88,6 +102,8 @@ export default {
         this.findSubsetSums(remaining, target, partial.concat([num]));
       }
 
+      let finish = performance.now();
+      this.calcTime = finish - start;
       return this.result;
     },
     dedupeArray(arr) {
