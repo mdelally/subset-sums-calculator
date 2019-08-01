@@ -110,7 +110,7 @@ export default {
 
       if (sum > target) return null;
 
-      if (sum === target) {
+      if (sum === target && partial.length > 1) {
         this.result.push(partial);
       }
 
